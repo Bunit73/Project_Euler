@@ -11,7 +11,7 @@ int main(int argc, char *argv[]){
 	int i;
 	unsigned long long  sum = 0;
 	double time0, time1, timeTaken;
-	time1 = omp_get_wtime();
+	time0 = omp_get_wtime();
 	
 	printf("%s\n","Brute Force");
 	for(i = 2; i < 2000000; i++){

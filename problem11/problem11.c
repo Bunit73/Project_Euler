@@ -35,15 +35,40 @@ int main(int argc, char *argv[]){
 	int row = sizeof(ORIGARR)/sizeof(ORIGARR[0]);
 	int col = sizeof(ORIGARR[0])/sizeof(ORIGARR[0][0]);
 	int x, y, tempProduct, maxProduct = 0;
+	double time0, time1, timeTaken;
+	time0 = omp_get_wtime();
 	
 	for(x = 0; x < row; x++){
 		for(y = 0; y < col; y++){
-			
+			tempProduct = 0;
+			if(calcUp(x,y) > tempProduct){
+				tempProduct = calcUp(x,y);
+			}
+			if(calcDown(x,y) > tempProduct){
+				tempProduct = calcDown(x,y);
+			}
+			if(calcLeft(x,y) > tempProduct){
+				tempProduct = calcLeft(x,y);
+			}
+			if(calcRight(x,y) > tempProduct){
+				tempProduct = calcRight(x,y);
+			}
+			if(calcDiagonalD(x,y) > tempProduct){
+				tempProduct = calcDiagonalD(x,y);
+			}
+			if(calcDiagonalU(x,y) > tempProduct){
+				tempProduct = calcDiagonalU(x,y);
+			}
+			if(tempProduct > maxProduct){
+				maxProduct = tempProduct;
+			}
 		}
 	}
 	
-	tempProduct = calcUp(3,0);
-	printf("%d\n",tempProduct);
+	time1 = omp_get_wtime();
+	
+	timeTaken = time1 - time0;
+	printf("Brute Forece Max Product: %d Time Taken: %8.8lf\n",maxProduct, timeTaken);
 	
 	return 0;
 }
@@ -64,21 +89,78 @@ int calcUp(int row, int col){
 }
 
 int calcDown(int row, int col){
+	int product = 1;
+	int i;
 	
-	return 0;
+	if(row + ADJ > 20){
+		return 0;
+	}
+	
+	for(i = 0; i < ADJ; i++){
+		product *= ORIGARR[row + i][col];
+	}
+	
+	return product;
 }
 
 int calcLeft(int row, int col){
+	int product = 1;
+	int i;
 	
-	return 0;
+	if(ADJ - col < 0){
+		return 0;
+	}
+	
+	for(i = 0; i < ADJ; i++){
+		product *= ORIGARR[row][col-i];
+	}
+	
+	return product;
 }
 
 int calcRight(int row, int col){
+	int product = 1;
+	int i;
 	
-	return 0;
+	if(ADJ + col > 20){
+		return 0;
+	}
+	
+	for(i = 0; i < ADJ; i++){
+		product *= ORIGARR[row][col+i];
+	}
+	
+	return product;
 }
 
-int calcDiagonal(int row, int col){
+int calcDiagonalD(int row, int col){
+	int product = 1;
+	int i;
 	
-	return 0;
+	if(row + ADJ > 20|| ADJ + col > 20){
+		return 0;
+	}
+	
+	for(i = 0; i < ADJ; i++){
+		//printf("%d\n",ORIGARR[row+i][col+i]);
+		product *= ORIGARR[row+i][col+i];
+	}
+	
+	return product;
+	
+}
+
+int calcDiagonalU(int row, int col){
+	int product = 1;
+	int i;
+	
+	if(row < ADJ-1|| ADJ + col > 20){
+		return 0;
+	}
+	
+	for(i = 0; i < ADJ; i++){
+		product *= ORIGARR[row-i][col+i];
+	}
+	
+	return product;
 }

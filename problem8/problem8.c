@@ -2,7 +2,6 @@
 //Problem 8: https://projecteuler.net/problem=8
 //gcc -o prob8 problem8.c -lm -fopenmp
 
-
 #include <stdio.h>
 #include <omp.h>
 

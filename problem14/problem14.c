@@ -1,5 +1,5 @@
 //Benjamin Ford
-//Problem 12: https://projecteuler.net/problem=1
+//Problem 14: https://projecteuler.net/problem=14
 //gcc -o prob14 problem14.c -lm -fopenmp
 
 #include <stdio.h>

@@ -12,6 +12,15 @@ int main(int argc, char *argv[]){
 }
 
 int latticePath(int x, int y){
+	int i, j;
+	int counter = 0;
+	
+	/*for(i=0;i<x;i++){
+		for(j=i;j<y;j++){
+			
+		}
+	}*/
+	
 	
 	return 0;
 }
